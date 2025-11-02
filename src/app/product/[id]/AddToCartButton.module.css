@@ -1,0 +1,20 @@
+.button {
+  background: #ffc107;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+  font-weight: bold;
+}
+
+.button:hover {
+  background: #ffb300;
+  transform: translateY(-2px);
+}
+
+.button:active {
+  transform: translateY(0);
+}

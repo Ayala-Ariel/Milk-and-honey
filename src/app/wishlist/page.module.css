@@ -1,0 +1,42 @@
+.container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  border: 1px solid #eee;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.price {
+  font-weight: bold;
+  color: #333;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.remove {
+  background: transparent;
+  border: none;
+  color: #c00;
+  cursor: pointer;
+}
