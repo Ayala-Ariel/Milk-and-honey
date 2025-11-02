@@ -3,15 +3,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styles from './page.module.css';
 import AddToCartButton from './AddToCartButton';
+import WishlistButton from './WishlistButton';
 
 interface ProductPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
-export default async function ProductPage(props: ProductPageProps | Promise<ProductPageProps>) {
-  // Next.js may pass props as a Promise in some runtimes; unwrap it first
-  const resolvedProps = await props;
-  const id = resolvedProps.params.id;
+export default async function ProductPage({ params }: ProductPageProps) {
+  const resolvedParams = await params;
+  const id = resolvedParams.id;
   const numericId = Number(id);
 
   if (isNaN(numericId) || numericId <= 0) {

@@ -1,0 +1,168 @@
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.cartContent {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.highlight {
+  color: #ffc107;
+}
+
+.empty {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+
+.itemsList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.itemRow {
+  display: flex;
+  gap: 20px;
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+  align-items: center;
+}
+
+.imageCol {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  background: #f9f9f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.infoCol {
+  flex: 1;
+}
+
+.itemTitle {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0 0 12px 0;
+  color: #333;
+}
+
+.quantityControls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.quantityControls button {
+  background: #f3f3f3;
+  border: 1px solid #ddd;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.quantityControls button:hover {
+  background: #e6e6e6;
+}
+
+.qty {
+  min-width: 30px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.removeBtn {
+  margin-left: auto;
+  background: transparent !important;
+  border: none !important;
+  color: #c00;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.removeBtn:hover {
+  background: transparent !important;
+  color: #900;
+}
+
+.summaryFooter {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.totalRow {
+  display: flex;
+  gap: 20px;
+  align-items: baseline;
+  margin-bottom: 20px;
+}
+
+.totalLabel {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.totalPrice {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #ffc107;
+}
+
+.completeButton {
+  background-color: #ffc107;
+  color: black;
+  border: none;
+  padding: 14px 40px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.completeButton:hover {
+  background-color: #ffb300;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+}
+
+@media (max-width: 768px) {
+  .itemRow {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .quantityControls {
+    justify-content: center;
+  }
+
+  .removeBtn {
+    margin-left: 0;
+    margin-top: 8px;
+  }
+}

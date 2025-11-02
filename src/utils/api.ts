@@ -24,15 +24,19 @@ export async function getProducts(): Promise<Product[]> {
 // הפונקציה החדשה: אחזור מוצרים לפי שם קטגוריה
 export async function getProductsByCategory(categoryName: string): Promise<Product[]> {
   try {
-    // ננקה את שם הקטגוריה ונוודא שהוא תואם למה שה-API מצפה
-    let category = decodeURIComponent(categoryName).toLowerCase();
+    // ננקה את שם הקטגוריה
+    let category = decodeURIComponent(categoryName).toLowerCase().trim();
     
-    // מיפוי שמות קטגוריות
+    console.log('Fetching category:', category);
+
+    // מיפוי שמות קטגוריות - תואם בדיוק לשמות ב-API
     const categoryMappings: { [key: string]: string } = {
       "men's clothing": "men's clothing",
       "mens clothing": "men's clothing",
+      "men's%20clothing": "men's clothing",
       "women's clothing": "women's clothing",
       "womens clothing": "women's clothing",
+      "women's%20clothing": "women's clothing",
       "jewelery": "jewelery",
       "electronics": "electronics"
     };
@@ -40,19 +44,27 @@ export async function getProductsByCategory(categoryName: string): Promise<Produ
     // נשתמש במיפוי אם קיים
     category = categoryMappings[category] || category;
 
+    console.log('Mapped category:', category);
+
     // קודם ננסה להביא ספציפית לקטגוריה
-    const res = await fetch(`https://fakestoreapi.com/products/category/${encodeURIComponent(category)}`, {
-      next: { revalidate: 3600 } // Cache for 1 hour
+    const url = `https://fakestoreapi.com/products/category/${encodeURIComponent(category)}`;
+    console.log('Fetching URL:', url);
+
+    const res = await fetch(url, {
+      cache: 'no-store' // Don't cache during development
     });
 
     if (res.ok) {
       const products = await res.json();
+      console.log('Found products:', products.length);
       return products;
     }
 
+    console.log('API returned error:', res.status);
+
     // אם נכשל, נביא את כל המוצרים ונסנן
     const allProductsRes = await fetch('https://fakestoreapi.com/products', {
-      next: { revalidate: 3600 }
+      cache: 'no-store'
     });
 
     if (!allProductsRes.ok) {
@@ -60,13 +72,16 @@ export async function getProductsByCategory(categoryName: string): Promise<Produ
     }
 
     const allProducts = await allProductsRes.json();
-    return allProducts.filter((product: Product) => 
+    const filtered = allProducts.filter((product: Product) => 
       product.category.toLowerCase() === category
     );
+    
+    console.log('Filtered products:', filtered.length);
+    return filtered;
 
   } catch (error) {
     console.error('Error fetching products for category:', categoryName, error);
-    return [];
+    throw error; // חשוב לזרוק את השגיאה כדי שהקומפוננט יראה שיש בעיה
   }
 }
 
