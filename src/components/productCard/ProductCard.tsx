@@ -19,7 +19,6 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   const handleAddToCart = () => {
     addToCart(product);
-    // מוסיף אנימציה קטנה לכפתור
     const button = document.activeElement as HTMLButtonElement;
     if (button) {
       button.classList.add(styles.clicked);

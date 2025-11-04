@@ -1,13 +1,17 @@
 'use client';
 
+
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './Header.module.css';
-import { useCart } from '@/contexts/CartContext'; 
+import { useCart } from '@/contexts/CartContext';
+import { useState } from 'react';
+import CartDropdown from '../cartDropdown/CartDropdown';
 
 export default function Header() {
-  const { cartCount } = useCart();
-  
+  const { cartCount, clearCart } = useCart();
+  const [cartOpen, setCartOpen] = useState(false);
+
   const navItems = [
     { name: 'Home', href: '/', isActive: true },
     { name: "Men's Clothing", href: '/category/men%27s%20clothing', isActive: false },
@@ -17,16 +21,16 @@ export default function Header() {
     { name: 'Wishlist', href: '/wishlist', isActive: false },
     { name: 'Contact Us', href: '/contact', isActive: false },
   ];
-  
+
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
         <Link href="/" className={styles['logo-link']}>
             <Image
-                src="/logo1.png" // התיקון שהיה צריך לבצע
+                src="/logo1.png"
                 alt="Logo"
-                width={30} 
-                height={30} 
+                width={30}
+                height={30}
                 style={{ objectFit: 'contain' }}
             />
             <span>SHOP</span>
@@ -37,8 +41,8 @@ export default function Header() {
         <ul className={styles.nav}>
           {navItems.map((item) => (
             <li key={item.name}>
-              <Link 
-                href={item.href} 
+              <Link
+                href={item.href}
                 className={`${styles['nav-link']} ${item.isActive ? styles.active : ''}`}
               >
                 {item.name}
@@ -49,8 +53,14 @@ export default function Header() {
       </nav>
 
       <div className={styles.cartAndLinks}>
-        <Link href="/wishlist" className={styles['wishlist-link']}>Wishlist</Link>
-        <Link href="/cart" className={styles['cart-link']}>Cart ({cartCount})</Link>
+        <button
+          className={styles['cart-link']}
+          onClick={() => setCartOpen((v) => !v)}
+          aria-label="Open cart"
+        >
+          Cart ({cartCount})
+        </button>
+        <CartDropdown open={cartOpen} onClose={() => setCartOpen(false)} />
       </div>
     </header>
   );

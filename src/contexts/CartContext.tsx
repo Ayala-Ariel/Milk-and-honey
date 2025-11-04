@@ -28,7 +28,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         try {
             const raw = localStorage.getItem('cart');
             if (!raw) return [];
-            return JSON.parse(raw) as CartItem[];
+            const parsed = JSON.parse(raw);
+            if (!Array.isArray(parsed)) return [];
+            // validate that all items have id, quantity, price
+            if (parsed.some(item => typeof item.id !== 'number' || typeof item.quantity !== 'number' || typeof item.price !== 'number')) {
+                return [];
+            }
+            return parsed as CartItem[];
         } catch (e) {
             console.error('Failed to parse cart from localStorage', e);
             return [];
